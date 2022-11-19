@@ -27,5 +27,23 @@ public class rubroNegra {
         nil.cor = 'p';
     }
 
+    public void clear() {
+        count = 0;
+        root = null;
+    }
 
+    public boolean isEmpty() {
+        return (root == null);
+    }
+
+    public int size() {
+        return count;
+    }
+
+    public Integer getRoot() {
+        if (isEmpty()) {
+            throw new EmptyTreeException();
+        }
+    return root.element;
+}
 }
