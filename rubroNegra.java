@@ -152,4 +152,19 @@ public class rubroNegra {
         n.right = nil;
         fixUp(n);
     }
+
+    public LinkedListOfInteger positionsPre() {
+        LinkedListOfInteger res = new LinkedListOfInteger();
+        positionsPreAux(root, res);
+        return res;
+    }
+
+    private void positionsPreAux(Node n, LinkedListOfInteger res) {
+        if (n != nil) {
+            res.add(n.element); //Visita o nodo
+            positionsPreAux(n.left, res); //Visita a sub�rvore da esquerda
+            positionsPreAux(n.right, res); //Visita a sub�rvore da direita
+        }
+
+    }
 }
