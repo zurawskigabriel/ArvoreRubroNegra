@@ -5,7 +5,7 @@ public class rubroNegra {
         public Node right;
         public Integer element;
         public char cor;
- 
+
         public Node(Integer element, char cor) {
             father = null;
             left = null;
@@ -16,9 +16,9 @@ public class rubroNegra {
     }
 
     // Atributos da árvore
-    private int count;  // número de elementos
-    private Node root;  // referencia para a raiz
-    private Node nil;  // nodo sentinela
+    private int count; // número de elementos
+    private Node root; // referencia para a raiz
+    private Node nil; // nodo sentinela
 
     public rubroNegra() {
         count = 0;
@@ -43,20 +43,24 @@ public class rubroNegra {
         if (isEmpty()) {
             throw new EmptyTreeException();
         }
-    return root.element;
+        return root.element;
+    }
+
+    public boolean contains(int n) {
+        return true;
     }
 
     private void rightRotate(Node n) {
         Node aux = n.left;
         n.left = aux.right;
-        if (aux.right != nil) 
+        if (aux.right != nil)
             aux.right.father = n;
 
         aux.father = n.father; // liga o pai de x a y
 
         if (n.father == nil)
             root = aux;
-        
+
         else if (n == n.father.right)
             n.father.right = aux;
         else
@@ -68,14 +72,14 @@ public class rubroNegra {
     private void leftRotate(Node n) {
         Node aux = n.right;
         n.right = aux.left;
-        if (aux.left != nil) 
+        if (aux.left != nil)
             aux.left.father = n;
 
         aux.father = n.father; // liga o pai de x a y
 
         if (n.father == nil)
             root = aux;
-        
+
         else if (n == n.father.left)
             n.father.left = aux;
         else
@@ -103,8 +107,7 @@ public class rubroNegra {
                     n.father.cor = 'p';
                     n = n.father;
                 }
-            }
-            else {
+            } else {
                 Node uncle = n.father.father.left;
                 if (uncle.cor == 'v') {
                     n.father.cor = 'p';
@@ -128,30 +131,77 @@ public class rubroNegra {
     public void add(Integer element) {
         // primeiro cria o nodo a ser inserido
         Node n = new Node(element, 'v');
-        
+
         // procura pelo pai
         Node aux = nil;
         Node aux1 = root;
-        while(aux1 != nil) {
-            aux =  aux1;
+        while (aux1 != nil) {
+            aux = aux1;
             if (n.element < aux1.element)
                 aux1 = aux1.left;
             else
                 aux1 = aux1.right;
         }
-        n.father = aux;  //liga o nodo ao pai
+        n.father = aux; // liga o nodo ao pai
 
         // se não encontrou o pai
         if (aux == nil)
             root = n;
         else if (n.element < aux1.element)
             aux.left = n;
-        else 
+        else
             aux.right = n;
         n.left = nil;
         n.right = nil;
-        fixUp(n);
+        // fixUp(n);
     }
+
+    //////////////// Outros métodos /////////////////////
+
+    public boolean contains(Integer element) {
+        Node n = searchNodeRef(element, root);
+        return (n != null);
+    }
+
+    private Node searchNodeRef(Integer element, Node target) {
+        if (element == null || target == null)
+            return null;
+        if (element == target.element)
+            return target;
+        if (element < target.element)
+            return searchNodeRef(element, target.left);
+        else
+            return searchNodeRef(element, target.right);
+    }
+
+    public int height() {
+        if (root == nil)
+            return 0;
+        else if (root.left == nil && root.right == nil)
+            return 0;
+        else
+            return height(root);
+    }
+
+    private int height(Node n) {
+        if (n.left == nil && n.right == nil) {
+            return 0;
+        } else {
+            int h = 0;
+            if (n.left != nil)
+                h = Math.max(h, height(n.left));
+            if (n.right != nil)
+                h = Math.max(h, height(n.right));
+            return 1 + h;
+        }
+    }
+
+    public Integer getParent(Integer element) {
+        Node n = searchNodeRef(element, root);
+        return n.element;
+    }
+
+    //////////////// Positions /////////////////////
 
     public LinkedListOfInteger positionsPre() {
         LinkedListOfInteger res = new LinkedListOfInteger();
@@ -161,10 +211,58 @@ public class rubroNegra {
 
     private void positionsPreAux(Node n, LinkedListOfInteger res) {
         if (n != nil) {
-            res.add(n.element); //Visita o nodo
-            positionsPreAux(n.left, res); //Visita a sub�rvore da esquerda
-            positionsPreAux(n.right, res); //Visita a sub�rvore da direita
+            res.add(n.element);
+            positionsPreAux(n.left, res);
+            positionsPreAux(n.right, res);
         }
-
     }
+
+    public LinkedListOfInteger positionsPos() {
+        LinkedListOfInteger res = new LinkedListOfInteger();
+        positionsPosAux(root, res);
+        return res;
+    }
+
+    private void positionsPosAux(Node n, LinkedListOfInteger res) {
+        if (n != nil) {
+            positionsPosAux(n.left, res);
+            positionsPosAux(n.right, res);
+            res.add(n.element);
+        }
+    }
+
+    public LinkedListOfInteger positionsCentral() {
+        LinkedListOfInteger res = new LinkedListOfInteger();
+        positionsCentralAux(root, res);
+        return res;
+    }
+
+    private void positionsCentralAux(Node n, LinkedListOfInteger res) {
+        if (n != nil) {
+            positionsCentralAux(n.left, res);
+            res.add(n.element);
+            positionsCentralAux(n.right, res);
+        }
+    }
+
+    public LinkedListOfInteger positionsWidth() {
+        Queue<Node> fila = new Queue<>();
+        Node atual = null;
+        LinkedListOfInteger res = new LinkedListOfInteger();
+        if (root != nil) {
+            fila.enqueue(root);
+            while (!fila.isEmpty()) {
+                atual = fila.dequeue();
+                if (atual.left != nil) {
+                    fila.enqueue(atual.left);
+                }
+                if (atual.right != nil) {
+                    fila.enqueue(atual.right);
+                }
+                res.add(atual.element);
+            }
+        }
+        return res;
+    }
+
 }
