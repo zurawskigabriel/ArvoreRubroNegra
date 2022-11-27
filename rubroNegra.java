@@ -198,6 +198,9 @@ public class rubroNegra {
 
     public Integer getParent(Integer element) {
         Node n = searchNodeRef(element, root);
+        if (n == null) {
+            return 0;
+        }
         return n.element;
     }
 
