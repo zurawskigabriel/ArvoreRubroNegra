@@ -2,7 +2,7 @@ public class app {
     public static void main(String[] args) {
         rubroNegra r = new rubroNegra();
         rubroNegra r1 = new rubroNegra();
-        /*
+
         r.add(14);
         r.add(2);
         r.add(77);
@@ -37,7 +37,6 @@ public class app {
         r1.add(10);
 
         System.out.println("R2 ////////////////////////////////////////////////////////");
-        System.out.println("positions pre:");
         System.out.println(r1.positionsPre().toString());
         System.out.println("\npositions pos:");
         System.out.println(r1.positionsPos().toString());
@@ -54,6 +53,5 @@ public class app {
         System.out.println("\npai do elemento 8:");
         System.out.println(r1.getParent(8));
 
-        r1.GeraDOT();
     }
 }
