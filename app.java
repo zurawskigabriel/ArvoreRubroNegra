@@ -2,6 +2,7 @@ public class app {
     public static void main(String[] args) {
         rubroNegra r = new rubroNegra();
         rubroNegra r1 = new rubroNegra();
+        rubroNegra r2 = new rubroNegra();
 
         r.add(14);
         r.add(2);
@@ -35,7 +36,7 @@ public class app {
         r1.add(9);
         r1.add(10);
 
-        System.out.println("R2 ////////////////////////////////////////////////////////");
+        System.out.println("R1 ////////////////////////////////////////////////////////");
         System.out.println(r1.positionsPre().toString());
         System.out.println(r1.positionsPos().toString());
         System.out.println(r1.positionsCentral().toString());
@@ -44,6 +45,27 @@ public class app {
         System.out.println(r1.contains(5));
         System.out.println(r1.height());
         System.out.println(r1.getParent(8));
+
+        r1.add(10);
+        r1.add(9);
+        r1.add(8);
+        r1.add(7);
+        r1.add(6);
+        r1.add(5);
+        r1.add(4);
+        r1.add(3);
+        r1.add(2);
+        r1.add(1);
+
+        System.out.println("R2 ////////////////////////////////////////////////////////");
+        System.out.println(r2.positionsPre().toString());
+        System.out.println(r2.positionsPos().toString());
+        System.out.println(r2.positionsCentral().toString());
+        System.out.println(r2.positionsWidth().toString());
+        System.out.println(r2.contains(100));
+        System.out.println(r2.contains(5));
+        System.out.println(r2.height());
+        System.out.println(r2.getParent(8));
 
     }
 }

@@ -46,9 +46,7 @@ public class rubroNegra {
         return root.element;
     }
 
-    public boolean contains(int n) {
-        return true;
-    }
+    //////////////// Métodos de rotações usados para o balanceamento
 
     private void rightRotate(Node n) {
         Node aux = n.left;
@@ -87,6 +85,8 @@ public class rubroNegra {
         aux.left = n;
         n.father = aux;
     }
+
+    //////////////// Método de balaceamento /////////////////////
 
     private void fixUp(Node n) {
         while (n.cor == 'v' && n.father != nil && n.father.cor == 'v') {
@@ -127,6 +127,8 @@ public class rubroNegra {
             }
         }
     }
+
+    //////////////// Método de inserção O(logn) /////////////////////
 
     public void add(Integer element) {
         // primeiro cria o nodo a ser inserido
