@@ -1,17 +1,17 @@
 public class rubroNegra {
-    private static final class Node {
+    private final class Node {
         public Node father;
         public Node left;
         public Node right;
         public Integer element;
-        public char cor;
+        public boolean cor; // true para rubro e false para
 
-        public Node(Integer element, char cor) {
+        public Node(Integer element) {
             father = null;
-            left = null;
-            right = null;
+            left = nil;
+            right = nil;
             this.element = element;
-            this.cor = cor;
+            this.cor = true;
         }
     }
 
@@ -22,7 +22,8 @@ public class rubroNegra {
 
     public rubroNegra() {
         count = 0;
-        nil = new Node(0, 'p');
+        nil = new Node(null);
+        nil.cor = false;
         root = nil;
     }
 
@@ -56,9 +57,8 @@ public class rubroNegra {
 
         aux.father = n.father; // liga o pai de x a y
 
-        if (n.father == nil)
+        if (n.father == null)
             root = aux;
-
         else if (n == n.father.right)
             n.father.right = aux;
         else
@@ -75,137 +75,98 @@ public class rubroNegra {
 
         aux.father = n.father; // liga o pai de x a y
 
-        if (n.father == nil)
+        if (n.father == null)
             root = aux;
-
         else if (n == n.father.left)
             n.father.left = aux;
         else
             n.father.right = aux;
+        
         aux.left = n;
         n.father = aux;
     }
 
     //////////////// Método de balaceamento /////////////////////
 
-    private void fixUp(Node n) {
-        while (n.cor == 'v' && n.father != nil && n.father.cor == 'v') {
-            if (n.father == n.father.father.left) {
-                Node uncle = n.father.father.right;
-                if (uncle.cor == 'v') {
-                    n.father.cor = 'p';
-                    uncle.cor = 'p';
-                    n.father.father.cor = 'v';
-                    n = n.father.father;
-                } else {
-                    if (n == n.father.right) {
-                        leftRotate(n.father);
-                        n = n.left;
-                    }
-                    rightRotate(n.father.father);
-                    n.father.father.cor = 'v';
-                    n.father.cor = 'p';
-                    n = n.father;
-                }
-            } else {
-                Node uncle = n.father.father.left;
-                if (uncle.cor == 'v') {
-                    n.father.cor = 'p';
-                    uncle.cor = 'p';
-                    n.father.father.cor = 'v';
+    private void balanceamentoAdd(Node n) {
+        Node tio;
+        while (n.father.cor) {
+            if (n.father == n.father.father.right) {
+                tio = n.father.father.left;
+                if (tio.cor) {
+                    tio.cor = false;
+                    n.father.cor = false;
+                    n.father.father.cor = true;
                     n = n.father.father;
                 } else {
                     if (n == n.father.left) {
-                        rightRotate(n.father);
-                        n = n.left;
+                        n = n.father;
+                        rightRotate(n);
                     }
+                    n.father.cor = false;
+                    n.father.father.cor = true;
                     leftRotate(n.father.father);
-                    n.father.father.cor = 'v';
-                    n.father.cor = 'p';
-                    n = n.father;
+                }
+            } else {
+                tio = n.father.father.right;
+                if (tio.cor) {
+                    tio.cor = false;
+                    n.father.cor = false;
+                    n.father.father.cor = true;
+                    n = n.father.father;
+                } else {
+                    if (n == n.father.right) {
+                        n = n.father;
+                        leftRotate(n);
+                    }
+                    n.father.cor = false;
+                    n.father.father.cor = true;
+                    rightRotate(n.father.father);
                 }
             }
-        }
-        root.cor = 'p';
-    }
-
-    private void fixUp2(Node n) {
-        while (n.father != nil) {
-            while (n.father.cor == 'v') {
-                if(n.father == ((n.father).father).left) {
-                    if (((n.father).father).right != nil){
-                    Node y = ((n.father).father).right;
-                    if (y.cor == 'v') {
-                        n.father.cor = 'p';
-                        y.cor = 'p';
-                        n.father.father.cor = 'v';
-                        n = n.father.father;
-                    }
-                    else {
-                        if (n == n.father.right) {
-                            n = n.father;
-                            leftRotate(n);
-                        }
-                        n.father.cor = 'p';
-                        n.father.father.cor = 'v';
-                        rightRotate(n);
-                    }
-                    }
-                }
-                if(n.father == ((n.father).father).right) {
-                    if (((n.father).father).left != nil){
-                    Node y = ((n.father).father).left;
-                    if (y.cor == 'v') {
-                        n.father.cor = 'p';
-                        y.cor = 'p';
-                        n.father.father.cor = 'v';
-                        n = n.father.father;
-                    }
-                    else {
-                        if (n == n.father.left) {
-                            n = n.father;
-                            leftRotate(n);
-                        }
-                        n.father.cor = 'p';
-                        n.father.father.cor = 'v';
-                        rightRotate(n);
-                    }
-                    }
-                }
+            if (n == root) { //FIXME
+                break;
             }
         }
-        root.cor = 'p';
+        root.cor = false;
     }
 
     //////////////// Método de inserção O(logn) /////////////////////
 
     public void add(Integer element) {
         // primeiro cria o nodo a ser inserido
-        Node n = new Node(element, 'v');
+        Node n = new Node(element);
 
         // procura pelo pai
-        Node y = nil;
-        Node x = root;
-        while (x != nil) {
-            y = x;
-            if (n.element < x.element)
-                x = x.left;
+        Node pai = null;
+        Node aux = root;
+        while (aux != nil) {
+            pai = aux;
+            if (n.element < aux.element)
+                aux = aux.left;
             else
-                x = x.right;
+                aux = aux.right;
         }
-        n.father = y; // liga o nodo ao pai
+        // liga o nodo ao pai
+        n.father = pai;
 
-        // se não encontrou o pai
-        if (y == nil)
+        if (pai == nil  || pai == null) // se não encontrou o pai
             root = n;
-        else if (n.element < y.element)
-            y.left = n;
-        else
-            y.right = n;
-        n.left = nil;
-        n.right = nil;
-        n.cor = 'v';
-        fixUp(n);
+        else if (n.element < pai.element) // se n é menor que o pai
+            pai.left = n;
+        else                              // se n é maior que o pai
+            pai.right = n;
+        
+        if (n.father == null) { //FIXME
+            n.cor = false;
+            return;
+        }
+      
+        if (n.father.father == null) {//FIXME
+            return;
+        }
+        
+        balanceamentoAdd(n);
     }
 
     //////////////// Outros métodos /////////////////////
@@ -319,6 +280,7 @@ public class rubroNegra {
         }
         return res;
     }
+    
     private void GeraConexoesDOT(Node nodo) {
         if (nodo == null) {
             return;
