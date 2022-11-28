@@ -62,7 +62,7 @@ public class rubroNegra {
         else if (n == n.father.right)
             n.father.right = aux;
         else
-            n.father.left = aux;
+           n.father.left = aux;
         aux.right = n;
         n.father = aux;
     }
@@ -129,6 +129,54 @@ public class rubroNegra {
         root.cor = 'p';
     }
 
+    private void fixUp2(Node n) {
+        while (n.father != nil) {
+            while (n.father.cor == 'v') {
+                if(n.father == ((n.father).father).left) {
+                    if (((n.father).father).right != nil){
+                    Node y = ((n.father).father).right;
+                    if (y.cor == 'v') {
+                        n.father.cor = 'p';
+                        y.cor = 'p';
+                        n.father.father.cor = 'v';
+                        n = n.father.father;
+                    }
+                    else {
+                        if (n == n.father.right) {
+                            n = n.father;
+                            leftRotate(n);
+                        }
+                        n.father.cor = 'p';
+                        n.father.father.cor = 'v';
+                        rightRotate(n);
+                    }
+                    }
+                }
+                if(n.father == ((n.father).father).right) {
+                    if (((n.father).father).left != nil){
+                    Node y = ((n.father).father).left;
+                    if (y.cor == 'v') {
+                        n.father.cor = 'p';
+                        y.cor = 'p';
+                        n.father.father.cor = 'v';
+                        n = n.father.father;
+                    }
+                    else {
+                        if (n == n.father.left) {
+                            n = n.father;
+                            leftRotate(n);
+                        }
+                        n.father.cor = 'p';
+                        n.father.father.cor = 'v';
+                        rightRotate(n);
+                    }
+                    }
+                }
+            }
+        }
+        root.cor = 'p';
+    }
+
     //////////////// Método de inserção O(logn) /////////////////////
 
     public void add(Integer element) {
@@ -136,26 +184,27 @@ public class rubroNegra {
         Node n = new Node(element, 'v');
 
         // procura pelo pai
-        Node aux = nil;
-        Node aux1 = root;
-        while (aux1 != nil) {
-            aux = aux1;
-            if (n.element < aux1.element)
-                aux1 = aux1.left;
+        Node y = nil;
+        Node x = root;
+        while (x != nil) {
+            y = x;
+            if (n.element < x.element)
+                x = x.left;
             else
-                aux1 = aux1.right;
+                x = x.right;
         }
-        n.father = aux; // liga o nodo ao pai
+        n.father = y; // liga o nodo ao pai
 
         // se não encontrou o pai
-        if (aux == nil)
+        if (y == nil)
             root = n;
-        else if (n.element < aux1.element)
-            aux.left = n;
+        else if (n.element < y.element)
+            y.left = n;
         else
-            aux.right = n;
+            y.right = n;
         n.left = nil;
         n.right = nil;
+        n.cor = 'v';
         fixUp(n);
     }
 
@@ -270,7 +319,6 @@ public class rubroNegra {
         }
         return res;
     }
-
     private void GeraConexoesDOT(Node nodo) {
         if (nodo == null) {
             return;

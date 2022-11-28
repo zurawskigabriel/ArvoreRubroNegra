@@ -26,17 +26,7 @@ public class app {
         System.out.println(r.getParent(13));
         */
 
-        r1.add(1);
-        r1.add(2);
-        r1.add(3);
-        r1.add(4);
-        r1.add(5);
-        r1.add(6);
-        r1.add(7);
-        r1.add(8);
-        r1.add(9);
-        r1.add(10);
-
+        /*
         System.out.println("R2 ////////////////////////////////////////////////////////");
         System.out.println(r1.positionsPre().toString());
         System.out.println("\npositions pos:");
@@ -52,7 +42,29 @@ public class app {
         System.out.println("\naltura da árvore:");
         System.out.println(r1.height());
         System.out.println("\npai do elemento 8:");
-        System.out.println(r1.getParent(8));
+        System.out.println(r1.getParent(8));*/
+
+        //r1.add(1);
+        //r1.add(2);
+        //r1.add(3);
+        //r1.add(4);
+        //r1.add(5);
+        //r1.add(6);
+        //r1.add(7);
+        //r1.add(8);
+        //r1.add(9);
+
+        r1.add(9);
+        r1.add(8);
+        r1.add(7);
+        r1.add(6);
+        //r1.add(5);
+        //r1.add(4);
+        //r1.add(3);
+        //r1.add(2);
+        //r1.add(1);
+        System.out.println(r1.getRoot());
+        r1.GeraDOT();
 
     }
 }
