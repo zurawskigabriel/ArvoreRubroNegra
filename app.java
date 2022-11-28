@@ -1,7 +1,7 @@
-public class app {
+public class App {
     public static void main(String[] args) {
         // instanciar a árvore
-        rubroNegra r1 = new rubroNegra();
+        RubroNegra r1 = new RubroNegra();
         System.out.println("Árvore instanciada\n");
 
         // adicionar elementos
@@ -47,7 +47,7 @@ public class app {
 
         // Clonar a Árvore
         System.out.println("r1 clonado em r2:\n");
-        rubroNegra r2 = r1.clone();
+        RubroNegra r2 = r1.clone();
 
         // Geradot do clone
         System.out.println("geraDot do clone:");

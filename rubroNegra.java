@@ -1,4 +1,4 @@
-public class rubroNegra {
+public class RubroNegra {
     private final class Node {
         public Node father;
         public Node left;
@@ -20,7 +20,7 @@ public class rubroNegra {
     private Node root; // referencia para a raiz
     private Node nil; // nodo sentinela
 
-    public rubroNegra() {
+    public RubroNegra() {
         count = 0;
         nil = new Node(null);
         nil.cor = false;
@@ -216,13 +216,13 @@ public class rubroNegra {
         return n.father.element;
     }
 
-    public rubroNegra clone(){
-        rubroNegra cloneArv = new rubroNegra();
+    public RubroNegra clone(){
+        RubroNegra cloneArv = new RubroNegra();
         cloneAux(root, cloneArv);
         return cloneArv;
     }
 
-    private void cloneAux(Node n, rubroNegra arv) {
+    private void cloneAux(Node n, RubroNegra arv) {
         if (n != nil) {
             arv.add(n.element);
             cloneAux(n.right, arv);
