@@ -2,7 +2,7 @@ public class app {
     public static void main(String[] args) {
         rubroNegra r = new rubroNegra();
         rubroNegra r1 = new rubroNegra();
-
+        /*
         r.add(14);
         r.add(2);
         r.add(77);
@@ -23,6 +23,7 @@ public class app {
         System.out.println(r.contains(24));
         System.out.println(r.height());
         System.out.println(r.getParent(13));
+        */
 
         r1.add(1);
         r1.add(2);
@@ -36,14 +37,23 @@ public class app {
         r1.add(10);
 
         System.out.println("R2 ////////////////////////////////////////////////////////");
+        System.out.println("positions pre:");
         System.out.println(r1.positionsPre().toString());
+        System.out.println("\npositions pos:");
         System.out.println(r1.positionsPos().toString());
+        System.out.println("\npositions central:");
         System.out.println(r1.positionsCentral().toString());
+        System.out.println("\npositions width:");
         System.out.println(r1.positionsWidth().toString());
+        System.out.println("\ncontem o 100?:");
         System.out.println(r1.contains(100));
+        System.out.println("\ncontem o 5?:");
         System.out.println(r1.contains(5));
+        System.out.println("\naltura da árvore:");
         System.out.println(r1.height());
+        System.out.println("\npai do elemento 8:");
         System.out.println(r1.getParent(8));
 
+        r1.GeraDOT();
     }
 }
