@@ -29,7 +29,7 @@ public class rubroNegra {
 
     public void clear() {
         count = 0;
-        root = null;
+        root = nil;
     }
 
     public boolean isEmpty() {
@@ -124,7 +124,7 @@ public class rubroNegra {
                     rightRotate(n.father.father);
                 }
             }
-            if (n == root) { //FIXME
+            if (n == root) {
                 break;
             }
         }
@@ -157,14 +157,13 @@ public class rubroNegra {
         else                              // se n é maior que o pai
             pai.right = n;
         
-        if (n.father == null) { //FIXME
+        if (n.father == null) {
             n.cor = false;
             return;
         }
       
-        if (n.father.father == null) {//FIXME
+        if (n.father.father == null)
             return;
-        }
         
         balanceamentoAdd(n);
     }
@@ -214,7 +213,21 @@ public class rubroNegra {
         if (n == null) {
             return 0;
         }
-        return n.element;
+        return n.father.element;
+    }
+
+    public rubroNegra clone(){
+        rubroNegra cloneArv = new rubroNegra();
+        cloneAux(root, cloneArv);
+        return cloneArv;
+    }
+
+    private void cloneAux(Node n, rubroNegra arv) {
+        if (n != nil) {
+            arv.add(n.element);
+            cloneAux(n.right, arv);
+            cloneAux(n.left, arv);
+        }
     }
 
     //////////////// Positions /////////////////////

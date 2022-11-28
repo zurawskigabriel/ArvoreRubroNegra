@@ -1,49 +1,10 @@
 public class app {
     public static void main(String[] args) {
-        rubroNegra r = new rubroNegra();
+        // instanciar a árvore
         rubroNegra r1 = new rubroNegra();
+        System.out.println("Árvore instanciada\n");
 
-        /*
-        r.add(14);
-        r.add(2);
-        r.add(77);
-        r.add(54);
-        r.add(32);
-        r.add(13);
-        r.add(45);
-        r.add(24);
-        r.add(9);
-        r.add(8);
-
-        System.out.println("R ////////////////////////////////////////////////////////");
-        System.out.println(r.positionsPre().toString());
-        System.out.println(r.positionsPos().toString());
-        System.out.println(r.positionsCentral().toString());
-        System.out.println(r.positionsWidth().toString());
-        System.out.println(r.contains(100));
-        System.out.println(r.contains(24));
-        System.out.println(r.height());
-        System.out.println(r.getParent(13));
-        */
-
-        /*
-        System.out.println("R2 ////////////////////////////////////////////////////////");
-        System.out.println(r1.positionsPre().toString());
-        System.out.println("\npositions pos:");
-        System.out.println(r1.positionsPos().toString());
-        System.out.println("\npositions central:");
-        System.out.println(r1.positionsCentral().toString());
-        System.out.println("\npositions width:");
-        System.out.println(r1.positionsWidth().toString());
-        System.out.println("\ncontem o 100?:");
-        System.out.println(r1.contains(100));
-        System.out.println("\ncontem o 5?:");
-        System.out.println(r1.contains(5));
-        System.out.println("\naltura da árvore:");
-        System.out.println(r1.height());
-        System.out.println("\npai do elemento 8:");
-        System.out.println(r1.getParent(8));*/
-
+        // adicionar elementos
         r1.add(1);
         r1.add(2);
         r1.add(3);
@@ -53,18 +14,45 @@ public class app {
         r1.add(7);
         r1.add(8);
         r1.add(9);
+        System.out.println("Elementos adicionados\n");
 
-        //r1.add(9);
-        //r1.add(8);
-        //r1.add(7);
-        //r1.add(6);
-        //r1.add(5);
-        //r1.add(4);
-        //r1.add(3);
-        //r1.add(2);
-        //r1.add(1);
-        //System.out.println(r1.getRoot());
+        // Apresentar altura
+        System.out.println("Altura da árvore: " + r1.height() + "\n");
+
+        // geraDot
+        System.out.println("geraDot:");
         r1.GeraDOT();
+        System.out.println();
 
+        // limpar árvore
+        r1.clear();
+        System.out.println("Árvore limpa\n");
+
+        // adicionar novos elementos
+        r1.add(9);
+        r1.add(8);
+        r1.add(7);
+        r1.add(6);
+        r1.add(5);
+        r1.add(4);
+        r1.add(3);
+        r1.add(2);
+        r1.add(1);
+        System.out.println("Elementos adicionados\n");
+        
+        // Mostrar caminhamento central
+        LinkedListOfInteger posCentral = r1.positionsCentral();
+        System.out.println("Caminhamento Central: ");
+        System.out.println(posCentral);
+
+        // Clonar a Árvore
+        System.out.println("r1 clonado em r2:\n");
+        rubroNegra r2 = r1.clone();
+
+        // Geradot do clone
+        System.out.println("geraDot do clone:");
+        r2.GeraDOT();
+
+        
     }
 }
