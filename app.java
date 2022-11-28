@@ -3,6 +3,7 @@ public class app {
         rubroNegra r = new rubroNegra();
         rubroNegra r1 = new rubroNegra();
 
+        /*
         r.add(14);
         r.add(2);
         r.add(77);
