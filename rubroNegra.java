@@ -49,7 +49,7 @@ public class RubroNegra {
 
     //////////////// Métodos de rotações usados para o balanceamento
 
-    private void rightRotate(Node n) {
+    private void rightRotate(Node n) {  //O(1)
         Node aux = n.left;
         n.left = aux.right;
         if (aux.right != nil)
@@ -67,7 +67,7 @@ public class RubroNegra {
         n.father = aux;
     }
 
-    private void leftRotate(Node n) {
+    private void leftRotate(Node n) {  //O(1)
         Node aux = n.right;
         n.right = aux.left;
         if (aux.left != nil)
@@ -133,7 +133,7 @@ public class RubroNegra {
 
     //////////////// Método de inserção O(logn) /////////////////////
 
-    public void add(Integer element) {
+    public void add(Integer element) {  // O(log n)
         // primeiro cria o nodo a ser inserido
         Node n = new Node(element);
 
@@ -170,7 +170,7 @@ public class RubroNegra {
 
     //////////////// Outros métodos /////////////////////
 
-    public boolean contains(Integer element) {
+    public boolean contains(Integer element) {  // O(log n)
         Node n = searchNodeRef(element, root);
         return (n != null);
     }
@@ -186,7 +186,7 @@ public class RubroNegra {
             return searchNodeRef(element, target.right);
     }
 
-    public int height() {
+    public int height() {  //O(n)
         if (root == nil)
             return 0;
         else if (root.left == nil && root.right == nil)
@@ -216,7 +216,7 @@ public class RubroNegra {
         return n.father.element;
     }
 
-    public RubroNegra clone(){
+    public RubroNegra clone(){  // O(n)
         RubroNegra cloneArv = new RubroNegra();
         cloneAux(root, cloneArv);
         return cloneArv;
