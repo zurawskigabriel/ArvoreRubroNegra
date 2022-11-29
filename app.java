@@ -39,7 +39,7 @@ public class App {
         r1.add(2);
         r1.add(1);
         System.out.println("Elementos adicionados\n");
-        
+
         // Mostrar caminhamento central
         LinkedListOfInteger posCentral = r1.positionsCentral();
         System.out.println("Caminhamento Central: ");
@@ -55,6 +55,5 @@ public class App {
 
         r1.GeraDOT();
 
-        
     }
 }

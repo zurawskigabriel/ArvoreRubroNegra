@@ -49,7 +49,7 @@ public class RubroNegra {
 
     //////////////// Métodos de rotações usados para o balanceamento
 
-    private void rightRotate(Node n) {  //O(1)
+    private void rightRotate(Node n) { // O(1)
         Node aux = n.left;
         n.left = aux.right;
         if (aux.right != nil)
@@ -62,12 +62,12 @@ public class RubroNegra {
         else if (n == n.father.right)
             n.father.right = aux;
         else
-           n.father.left = aux;
+            n.father.left = aux;
         aux.right = n;
         n.father = aux;
     }
 
-    private void leftRotate(Node n) {  //O(1)
+    private void leftRotate(Node n) { // O(1)
         Node aux = n.right;
         n.right = aux.left;
         if (aux.left != nil)
@@ -81,7 +81,7 @@ public class RubroNegra {
             n.father.left = aux;
         else
             n.father.right = aux;
-        
+
         aux.left = n;
         n.father = aux;
     }
@@ -133,7 +133,7 @@ public class RubroNegra {
 
     //////////////// Método de inserção O(logn) /////////////////////
 
-    public void add(Integer element) {  // O(log n)
+    public void add(Integer element) { // O(log n)
         // primeiro cria o nodo a ser inserido
         Node n = new Node(element);
 
@@ -150,27 +150,27 @@ public class RubroNegra {
         // liga o nodo ao pai
         n.father = pai;
 
-        if (pai == nil  || pai == null) // se não encontrou o pai
+        if (pai == nil || pai == null) // se não encontrou o pai
             root = n;
         else if (n.element < pai.element) // se n é menor que o pai
             pai.left = n;
-        else                              // se n é maior que o pai
+        else // se n é maior que o pai
             pai.right = n;
-        
+
         if (n.father == null) {
             n.cor = false;
             return;
         }
-      
+
         if (n.father.father == null)
             return;
-        
+
         balanceamentoAdd(n);
     }
 
     //////////////// Outros métodos /////////////////////
 
-    public boolean contains(Integer element) {  // O(log n)
+    public boolean contains(Integer element) { // O(log n)
         Node n = searchNodeRef(element, root);
         return (n != null);
     }
@@ -186,7 +186,7 @@ public class RubroNegra {
             return searchNodeRef(element, target.right);
     }
 
-    public int height() {  //O(n)
+    public int height() { // O(n)
         if (root == nil)
             return 0;
         else if (root.left == nil && root.right == nil)
@@ -216,7 +216,7 @@ public class RubroNegra {
         return n.father.element;
     }
 
-    public RubroNegra clone(){  // O(n)
+    public RubroNegra clone() { // O(n)
         RubroNegra cloneArv = new RubroNegra();
         cloneAux(root, cloneArv);
         return cloneArv;
@@ -293,24 +293,24 @@ public class RubroNegra {
         }
         return res;
     }
-    
+
     private void GeraConexoesDOT(Node nodo) {
         if (nodo == null) {
             return;
         }
 
         GeraConexoesDOT(nodo.left);
-        //   "nodeA":esq -> "nodeB" [color="0.650 0.700 0.700"]
+        // "nodeA":esq -> "nodeB" [color="0.650 0.700 0.700"]
         if (nodo.left != null) {
             System.out.println("\"node" + nodo.element + "\":esq -> \"node" + nodo.left.element + "\" " + "\n");
         }
 
         GeraConexoesDOT(nodo.right);
-        //   "nodeA":dir -> "nodeB";
+        // "nodeA":dir -> "nodeB";
         if (nodo.right != null) {
             System.out.println("\"node" + nodo.element + "\":dir -> \"node" + nodo.right.element + "\" " + "\n");
         }
-        //"[label = " << nodo->hDir << "]" <<endl;
+        // "[label = " << nodo->hDir << "]" <<endl;
     }
 
     private void GeraNodosDOT(Node nodo) {
@@ -318,7 +318,7 @@ public class RubroNegra {
             return;
         }
         GeraNodosDOT(nodo.left);
-        //node10[label = "<esq> | 10 | <dir> "];
+        // node10[label = "<esq> | 10 | <dir> "];
         System.out.println("node" + nodo.element + "[label = \"<esq> | " + nodo.element + " | <dir> \"]" + "\n");
         GeraNodosDOT(nodo.right);
     }
@@ -336,7 +336,7 @@ public class RubroNegra {
     // Versoes online do GraphViz pode ser encontradas em
     // http://www.webgraphviz.com/
     // http://viz-js.com/
-    // https://dreampuf.github.io/GraphvizOnline 
+    // https://dreampuf.github.io/GraphvizOnline
     public void GeraDOT() {
         System.out.println("digraph g { \nnode [shape = record,height=.1];\n" + "\n");
 
@@ -345,6 +345,5 @@ public class RubroNegra {
         GeraConexoesDOT(root);
         System.out.println("}" + "\n");
     }
-    
 
 }
