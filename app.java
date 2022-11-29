@@ -53,7 +53,5 @@ public class App {
         System.out.println("geraDot do clone:");
         r2.GeraDOT();
 
-        r1.GeraDOT();
-
     }
 }
